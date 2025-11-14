@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Catch the Phish</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: white;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      color: black;
+    }
+
+    .tagline {
+      text-align: center;
+      color: gray;
+      font-size: 0.95rem;
+    }
+
+    .scenario {
+      border: 1px solid lightgray;
+      background: whitesmoke;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .message-box {
+      background: white;
+      border-left: 4px solid cornflowerblue;
+      padding: 10px;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 7px 12px;
+      border: 1px solid gray;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+
+    button:hover {
+      background: lightblue;
+    }
+
+    .result {
+      margin-top: 6px;
+      font-weight: bold;
+    }
+
+    .correct {
+      color: green;
+    }
+
+    .incorrect {
+      color: red;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 20px;
+      color: dimgray;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Catch the Phish</h1>
+  <p class="tagline">Decide if each message is <strong>PHISH</strong> or <strong>SAFE</strong>.</p>
+
+  <!-- Scenario 1 -->
+  <div class="scenario" data-answer="phish">
+    <h2>Scenario 1</h2>
+    <div class="message-box">
+      <p><strong>From:</strong> security@paypaI-support.com</p>
+      <p><strong>Subject:</strong> URGENT: Your account will be closed!</p>
+      <p>
+        We detected unusual activity. If you do not confirm your information within <strong>2 hours</strong>,
+        your account will be closed. Click the link below:
+      </p>
+      <p><a href="#">https://paypaI-security.com/verify</a></p>
+    </div>
+
+    <button onclick="checkAnswer(this, 'phish')">PHISH</button>
+    <button onclick="checkAnswer(this, 'safe')">SAFE</button>
+    <div class="result"></div>
+  </div>
+
+  <!-- Scenario 2 -->
+  <div class="scenario" data-answer="safe">
+    <h2>Scenario 2</h2>
+    <div class="message-box">
+      <p><strong>From:</strong> it-support@university.edu</p>
+      <p><strong>Subject:</strong> Password Reset Confirmation</p>
+      <p>
+        Your password was reset successfully. If this was NOT you, please call the IT Help Desk using the number
+        on the official website.
+      </p>
+    </div>
+
+    <button onclick="checkAnswer(this, 'phish')">PHISH</button>
+    <button onclick="checkAnswer(this, 'safe')">SAFE</button>
+    <div class="result"></div>
+  </div>
+
+  <!-- Scenario 3 -->
+  <div class="scenario" data-answer="phish">
+    <h2>Scenario 3</h2>
+    <div class="message-box">
+      <p><strong>From:</strong> hr@company-jobs.com</p>
+      <p><strong>Subject:</strong> You got the job! Fill out the attached form</p>
+      <p>
+        To finish onboarding, fill out the attached form with your Social Security Number, bank
+        details, and ID photo within 24 hours.
+      </p>
+    </div>
+
+    <button onclick="checkAnswer(this, 'phish')">PHISH</button>
+    <button onclick="checkAnswer(this, 'safe')">SAFE</button>
+    <div class="result"></div>
+  </div>
+
+  <p class="footer-note">
+    Tip: Watch for urgency, strange links, unknown senders, and requests for sensitive data.
+  </p>
+
+  <script>
+    function checkAnswer(button, choice) {
+      const box = button.closest('.scenario');
+      const correct = box.getAttribute('data-answer');
+      const result = box.querySelector('.result');
+
+      const buttons = box.querySelectorAll('button');
+      buttons.forEach(btn => btn.disabled = true);
+
+      if (choice === correct) {
+        result.textContent = "Correct! You caught the phish.";
+        result.className = "result correct";
+      } else {
+        result.textContent = "Incorrect — review the red flags above.";
+        result.className = "result incorrect";
+      }
+    }
+  </script>
+
+</body>
+</html>
